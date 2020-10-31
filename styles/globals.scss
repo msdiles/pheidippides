@@ -50,6 +50,9 @@ html,body,#__next{
 .auth-input {
   width: 80%;
   margin: 1rem 0 1rem !important;
+  &>div{
+    padding-right: 0;
+  }
 }
 
 .auth-button {

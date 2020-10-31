@@ -7,9 +7,12 @@ import Link from "next/link"
 import useLoginPage from "@/hooks/useLoginPage"
 import ValidationInput from "@/components/ValidationInput"
 import {isEmail} from "@/utils/validators"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import styles from "../signup/signup.module.scss"
+import React from "react"
 
 const Login = () => {
-  const {onSubmit, errors, register} = useLoginPage()
+  const {onSubmit, errors, register,loading} = useLoginPage()
   return <EmptyLayout>
     <Paper elevation={3} className="auth-form-box">
       <ExitToAppIcon className="auth-icon" fontSize="large"/>
@@ -47,7 +50,16 @@ const Login = () => {
             required: "Enter password",
           }}
         />
-        <Button variant="contained" color="primary" className="auth-button" type="submit">LOG IN</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className="auth-button"
+          type="submit"
+          disabled={loading}
+        >
+          LOG IN
+          {loading && <CircularProgress size={24} className={styles.buttonProgress}/>}
+        </Button>
       </form>
       <Divider variant="middle" className="auth-divider"/>
       <div className="auth-links">

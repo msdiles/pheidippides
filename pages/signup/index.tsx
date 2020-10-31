@@ -3,6 +3,12 @@ import Paper from "@material-ui/core/Paper"
 import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Link from "next/link"
 import ValidationInput from "@/components/ValidationInput"
 import {
@@ -13,9 +19,19 @@ import {
   mustHaveUppercase
 } from "@/utils/validators"
 import useSignUpPage from "@/hooks/useSignUpPage"
+import Router from "next/router"
+import styles from "./signup.module.scss"
+import useCheckEmail from "@/hooks/useCheckEmail"
+import React from "react"
+import useShowPasswordInput from "@/components/ShowPasswordInput/useShowPasswordInput"
+import ShowPasswordInput from "@/components/ShowPasswordInput"
+import ShowLoadingInput from "@/components/ShowLoadingInput"
 
 const Login = () => {
-  const {onSubmit, errors, register,watch} = useSignUpPage()
+  const {onSubmit, errors, register, watch, loading, isSignup} = useSignUpPage()
+  const {checkEmail, emailLoading} = useCheckEmail()
+  const {showPassword, toggleShow} = useShowPasswordInput()
+  const {showPassword: showPasswordRepeat, toggleShow: toggleShowRepeat} = useShowPasswordInput()
   return <EmptyLayout>
     <Paper elevation={3} className="auth-form-box">
       <ExitToAppIcon className="auth-icon" fontSize="large"/>
@@ -52,10 +68,10 @@ const Login = () => {
           errors={errors}
           register={register({
             required: true,
+            maxLength: 128,
             validate: {
               isEmail: (value: string) => isEmail(value),
-              isExist: async (value: string) => await true,
-              // isExist: async (value:string) => await checkEmailDebounce(value),
+              isExist: async (value: string) => await checkEmail(value),
             }
           })}
           errorMessage={{
@@ -63,7 +79,12 @@ const Login = () => {
             isEmail: "Invalid email format",
             maxLength: "Your email can't be longer than 128 characters",
             isExist: "User with this email already exists",
-          }}/>
+          }}
+          InputProps={{
+            endAdornment:
+              <ShowLoadingInput loading={emailLoading}/>
+          }}
+        />
         <ValidationInput
           error={!!errors.password}
           label="Password"
@@ -71,7 +92,7 @@ const Login = () => {
           placeholder="Password"
           variant="outlined"
           className="auth-input"
-          type="password"
+          type={showPassword ? "text" : "password"}
           size="small"
           errors={errors}
           register={register({
@@ -94,6 +115,10 @@ const Login = () => {
             hasDigit: "Password must have at least one digit character",
             hasNotSpecial: "Password mustn't have any special characters",
           }}
+          InputProps={{
+            endAdornment:
+              <ShowPasswordInput toggleShow={toggleShow} showPassword={showPassword}/>
+          }}
         />
         <ValidationInput
           error={!!errors.repeatPassword}
@@ -102,7 +127,7 @@ const Login = () => {
           placeholder="Password"
           variant="outlined"
           className="auth-input"
-          type="password"
+          type={showPasswordRepeat ? "text" : "password"}
           size="small"
           errors={errors}
           register={register({
@@ -113,14 +138,44 @@ const Login = () => {
             required: "Repeat password",
             validate: "Passwords don't match",
           }}
+          InputProps={{
+            endAdornment:
+              <ShowPasswordInput showPassword={showPasswordRepeat} toggleShow={toggleShowRepeat}/>
+          }}
         />
-        <Button variant="contained" color="primary" className="auth-button" type="submit">SIGN UP</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className="auth-button"
+          type="submit"
+          disabled={loading}>
+          SIGN UP
+          {loading && <CircularProgress size={24} className={styles.buttonProgress}/>}
+        </Button>
+
       </form>
       <Divider variant="middle" className="auth-divider"/>
       <div className="auth-links">
-        <Link href="/login"><a className="auth-link">Already have an account? Log in</a></Link>
+        <Link href={"/login"}><a className="auth-link">Already have an account? Log in</a></Link>
       </div>
     </Paper>
+    <Dialog open={isSignup} onBackdropClick={() => {
+    }} maxWidth="sm" fullWidth={true}>
+      <DialogTitle>Congratulations</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          You have successfully registered.
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => Router.push("/")} color="primary">
+          Go to home page
+        </Button>
+        <Button onClick={() => Router.push("/login")} color="primary" autoFocus>
+          Login
+        </Button>
+      </DialogActions>
+    </Dialog>
   </EmptyLayout>
 }
 
