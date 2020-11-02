@@ -9,20 +9,23 @@ import {isEmail} from "@/utils/validators"
 import useResetLinkPage from "@/hooks/useResetLinkPage"
 import useCheckEmail from "@/hooks/useCheckEmail"
 import ShowLoadingInput from "@/components/ShowLoadingInput"
-import React from "react"
 import CircularProgress from "@material-ui/core/CircularProgress"
-import styles from "./link.module.scss"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogActions from "@material-ui/core/DialogActions"
 import Router from "next/router"
 import Dialog from "@material-ui/core/Dialog"
+import Head from "next/head"
+import styles from "./link.module.scss"
 
 const Login = () => {
   const {onSubmit, errors, register,isSent,loading} = useResetLinkPage()
   const {checkEmail, emailLoading} = useCheckEmail()
   return <EmptyLayout>
+    <Head>
+      <title>Reset Password | Pheidippides</title>
+    </Head>
     <Paper elevation={3} className="auth-form-box">
       <VpnKeyIcon className="auth-icon" fontSize="large"/>
       <h2 className="text-center">Reset Password</h2>

@@ -20,12 +20,12 @@ import {
 } from "@/utils/validators"
 import useSignUpPage from "@/hooks/useSignUpPage"
 import Router from "next/router"
-import styles from "./signup.module.scss"
 import useCheckEmail from "@/hooks/useCheckEmail"
-import React from "react"
 import useShowPasswordInput from "@/components/ShowPasswordInput/useShowPasswordInput"
 import ShowPasswordInput from "@/components/ShowPasswordInput"
 import ShowLoadingInput from "@/components/ShowLoadingInput"
+import Head from "next/head"
+import styles from "./signup.module.scss"
 
 const Login = () => {
   const {onSubmit, errors, register, watch, loading, isSignup} = useSignUpPage()
@@ -33,6 +33,9 @@ const Login = () => {
   const {showPassword, toggleShow} = useShowPasswordInput()
   const {showPassword: showPasswordRepeat, toggleShow: toggleShowRepeat} = useShowPasswordInput()
   return <EmptyLayout>
+    <Head>
+      <title>SignUp | Pheidippides</title>
+    </Head>
     <Paper elevation={3} className="auth-form-box">
       <ExitToAppIcon className="auth-icon" fontSize="large"/>
       <h2 className="text-center">Sign Up</h2>

@@ -1,8 +1,14 @@
 import '../styles/globals.scss'
 import {AppProps} from "next/app"
 import Head from "next/head"
-import {Provider} from "react-redux"
+import {Provider, useDispatch} from "react-redux"
 import {useStore} from "@/state/store"
+import SnackbarsHandler from "@/components/SnackbarsHandler"
+import AuthProvider from "@/components/AuthProvider"
+import {useEffect} from "react"
+import {authRefreshStart} from "@/state/actions/auth.actions"
+import StartDispatcher from "@/components/StartDispatcher"
+import {NextPageContext} from "next"
 
 function MyApp({Component, pageProps}: AppProps) {
   const store = useStore(pageProps.initialReduxState)
@@ -13,9 +19,16 @@ function MyApp({Component, pageProps}: AppProps) {
 
     </Head>
     <Provider store={store}>
-      <Component {...pageProps} />
+      <StartDispatcher/>
+      <SnackbarsHandler/>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </Provider>
   </>
 }
 
 export default MyApp
+
+//TODO button back on auth page
+//TODO add mobile

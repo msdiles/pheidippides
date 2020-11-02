@@ -1,8 +1,8 @@
 import {useForm} from "react-hook-form"
 import API from "@/utils/API"
-import {appSetError} from "@/state/actions/app.actions"
 import {useState} from "react"
 import {useDispatch} from "react-redux"
+import {appSetMessage} from "@/state/actions/app.actions"
 
 const useResetLinkPage=()=>{
   const [loading, setLoading] = useState(false)
@@ -19,7 +19,7 @@ const useResetLinkPage=()=>{
       }
       setIsSent(true)
     } catch (e) {
-      dispatch(appSetError(e.message))
+      dispatch(appSetMessage({message:e.message,type:"error"}))
     } finally {
       setLoading(false)
 

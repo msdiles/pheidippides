@@ -1,32 +1,29 @@
 import {AppActionsTypes, AppActions} from "../types/app.types"
+import {MessageContent} from "../../models/types"
 
 interface IApp {
-  message: string
-  error: string
+  message: {
+    type: MessageContent
+    content: ""
+  }
 }
 
 export const appState: IApp = {
-  message: "",
-  error: ""
+  message: {
+    type: undefined,
+    content: ""
+  }
 }
 
 const appReducer = (state = appState, action: AppActions) => {
   switch (action.type) {
     case AppActionsTypes.APP_SET_MESSAGE:
       return {
-        ...state, message: action.payload.message
+        ...state, message: {content: action.payload.message || "", type: action.payload.type}
       }
     case AppActionsTypes.APP_REMOVE_MESSAGE:
       return {
-        ...state, message: ""
-      }
-    case AppActionsTypes.APP_SET_ERROR:
-      return {
-        ...state, error: action.payload.message
-      }
-    case AppActionsTypes.APP_REMOVE_ERROR:
-      return {
-        ...state, error: ""
+        ...state, message: {content: "", type: undefined}
       }
     default:
       return state

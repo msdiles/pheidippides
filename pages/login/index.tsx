@@ -8,12 +8,16 @@ import useLoginPage from "@/hooks/useLoginPage"
 import ValidationInput from "@/components/ValidationInput"
 import {isEmail} from "@/utils/validators"
 import CircularProgress from "@material-ui/core/CircularProgress"
+import Head from "next/head"
 import styles from "../signup/signup.module.scss"
-import React from "react"
+
 
 const Login = () => {
   const {onSubmit, errors, register,loading} = useLoginPage()
   return <EmptyLayout>
+    <Head>
+      <title>Login | Pheidippides</title>
+    </Head>
     <Paper elevation={3} className="auth-form-box">
       <ExitToAppIcon className="auth-icon" fontSize="large"/>
       <h2 className="text-center">Log In</h2>

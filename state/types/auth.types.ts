@@ -59,8 +59,8 @@ export interface AuthLogoutDone extends Action {
 
 //AUTH_REFRESH_START
 export interface AuthRefreshStartPayload {
-  action: any
-  data: any
+  action?: any
+  data?: any
 }
 
 export interface AuthRefreshStart extends Action {

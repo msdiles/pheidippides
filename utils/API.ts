@@ -27,8 +27,8 @@ class API {
     return await this.handleRequest(response)
   }
 
-  static async refresh(token: string, fingerprint: string) {
-    const response = await http("auth/refresh", "POST", {data: {token, fingerprint}})
+  static async refresh( fingerprint: string) {
+    const response = await http("auth/refresh", "POST", {data: { fingerprint}})
     return await this.handleRequest(response)
   }
 

@@ -1,8 +1,8 @@
 import {useCallback, useState} from "react"
 import API from "@/utils/API"
 import {useDispatch} from "react-redux"
-import {appSetError} from "@/state/actions/app.actions"
 import AwesomeDebouncePromise from "awesome-debounce-promise"
+import {appSetMessage} from "@/state/actions/app.actions"
 
 
 const useCheckEmail = () => {
@@ -18,7 +18,7 @@ const useCheckEmail = () => {
       }
       return !result.isUserExist
     } catch (e) {
-      dispatch(appSetError(e.message))
+      dispatch(appSetMessage({message:e.message,type:"error"}))
     } finally {
       setLoading(false)
 

@@ -1,7 +1,4 @@
-import {
-  AuthActionsTypes,
-  AuthActions
-} from "../types/auth.types"
+import {AuthActions, AuthActionsTypes} from "../types/auth.types"
 
 interface IAuth {
   loading: boolean
@@ -47,6 +44,10 @@ const authReducer = (state = authState, action: AuthActions) => {
           userRole: [],
           userToken: "",
         }
+      }
+    case AuthActionsTypes.AUTH_REFRESH_START:
+      return {
+        ...state, isStarted: true
       }
     case AuthActionsTypes.AUTH_LOGIN_DONE:
       return {

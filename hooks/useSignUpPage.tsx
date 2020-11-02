@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form"
 import {useState} from "react"
 import API from "@/utils/API"
 import {useDispatch} from "react-redux"
-import {appSetError} from "@/state/actions/app.actions"
+import {appSetMessage} from "@/state/actions/app.actions"
 
 interface IForm {
   username: string
@@ -12,7 +12,7 @@ interface IForm {
 
 const useSignUpPage = () => {
   const [loading, setLoading] = useState(false)
-  const [isSignup,setIsSignup]=useState(false)
+  const [isSignup, setIsSignup] = useState(false)
   const {handleSubmit, register, errors, watch} = useForm()
   const dispatch = useDispatch()
 
@@ -25,14 +25,14 @@ const useSignUpPage = () => {
       }
       setIsSignup(true)
     } catch (e) {
-      dispatch(appSetError(e.message))
+      dispatch(appSetMessage({message: e.message, type: "error"}))
     } finally {
       setLoading(false)
 
     }
   }
 
-  return {onSubmit: handleSubmit(onSubmit), register, errors, watch, loading,isSignup}
+  return {onSubmit: handleSubmit(onSubmit), register, errors, watch, loading, isSignup}
 }
 
 export default useSignUpPage
