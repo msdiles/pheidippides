@@ -1,0 +1,47 @@
+.navbar{
+  height: 2.5rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #026AA7;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbarLeft{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  padding-left: 0.3rem;
+  width: 45%;
+}
+
+.navbarRight{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  padding-right: 0.3rem;
+  width: 45%;
+}
+
+.navbarButton{
+  border-radius: 5px !important;
+  padding: 0.35rem !important;
+
+  background-color:rgba(255,255,255,0.3) !important;
+  &:hover{
+    background-color:rgba(220,220,220,0.2) !important;
+  }
+}
+
+.navbarButtonIcon{
+  color:white;
+  opacity: 1;
+}
+
+.navbarProfileList{
+
+}

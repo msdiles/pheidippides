@@ -1,8 +1,8 @@
-import {useForm} from "react-hook-form"
-import {useState} from "react"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
 import API from "@/utils/API"
-import {useDispatch} from "react-redux"
-import {appSetMessage} from "@/state/actions/app.actions"
+import { useDispatch } from "react-redux"
+import { appSetMessage } from "@/state/actions/app.actions"
 
 interface IForm {
   username: string
@@ -13,26 +13,36 @@ interface IForm {
 const useSignUpPage = () => {
   const [loading, setLoading] = useState(false)
   const [isSignup, setIsSignup] = useState(false)
-  const {handleSubmit, register, errors, watch} = useForm()
+  const { handleSubmit, register, errors, watch } = useForm()
   const dispatch = useDispatch()
 
   const onSubmit = async (form: IForm) => {
     try {
       setLoading(true)
-      const {result, status} = await API.signup(form.email, form.username, form.password)
+      const { result, status } = await API.signup(
+        form.email,
+        form.username,
+        form.password
+      )
       if (status > 200) {
         throw new Error(result.message)
       }
       setIsSignup(true)
     } catch (e) {
-      dispatch(appSetMessage({message: e.message, type: "error"}))
+      dispatch(appSetMessage({ message: e.message, type: "error" }))
     } finally {
       setLoading(false)
-
     }
   }
 
-  return {onSubmit: handleSubmit(onSubmit), register, errors, watch, loading, isSignup}
+  return {
+    onSubmit: handleSubmit(onSubmit),
+    register,
+    errors,
+    watch,
+    loading,
+    isSignup,
+  }
 }
 
 export default useSignUpPage
