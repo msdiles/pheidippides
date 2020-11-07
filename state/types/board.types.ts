@@ -9,6 +9,8 @@ import {
 import { Action } from "redux"
 
 export enum BoardActionTypes {
+  BOARD_GET_ALL_START = "BOARD_GET_ALL_START",
+  BOARD_GET_ALL_DONE = "BOARD_GET_ALL_DONE",
   BOARD_CREATE_START = "BOARD_CREATE_START",
   BOARD_CREATE_DONE = "BOARD_CREATE_DONE",
   BOARD_DELETE_START = "BOARD_DELETE_START",
@@ -35,6 +37,25 @@ export enum BoardActionTypes {
   CARD_CHANGE_DONE = "CARD_CHANGE_DONE",
   CARD_GET_START = "CARD_GET_START",
   CARD_GET_DONE = "CARD_GET_DONE",
+}
+//BOARD_GET_ALL_START
+export interface BoardGetAllStartPayload {
+  userId: string
+}
+
+export interface BoardGetAllStart extends Action {
+  type: BoardActionTypes.BOARD_GET_ALL_START
+  payload: BoardGetAllStartPayload
+}
+
+//BOARD_GET_ALL_DONE
+export interface BoardGetAllDonePayload {
+  target: IBoard[]
+}
+
+export interface BoardGetAllDone extends Action {
+  type: BoardActionTypes.BOARD_GET_ALL_DONE
+  payload: BoardGetAllDonePayload
 }
 
 //BOARD_CREATE_START
@@ -300,6 +321,8 @@ export interface CardGetDone extends Action {
 }
 
 export type BoardActions =
+  | BoardGetAllStart
+  | BoardGetAllDone
   | BoardGetDone
   | BoardGetStart
   | BoardChangeDone

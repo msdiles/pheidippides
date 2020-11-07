@@ -3,31 +3,40 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Select from "@material-ui/core/Select"
 import CloseIcon from "@material-ui/icons/Close"
 import ClickAwayListener from "@/components/ClickAwayListener/intex"
-import { colors, randomColor } from "@/utils/colors"
+import { color, colors, randomColor } from "@/utils/colors"
 import { Button } from "@material-ui/core"
-import { ChangeEvent, useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/state/reducers"
 import { BoardStatus } from "../../models/types"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import LanguageIcon from "@material-ui/icons/Language"
 import CheckIcon from "@material-ui/icons/Check"
+import PeopleOutlinedIcon from "@material-ui/icons/PeopleOutlined"
+import { boardCreateStart } from "@/state/actions/board.actions"
 
 interface IProps {
   open: boolean
   closeForm: () => void
   status: BoardStatus
+  pickedTeam: string | null
 }
 
-const AddBoardForm = ({ open, closeForm, status }: IProps) => {
+const AddBoardForm = ({ open, closeForm, status, pickedTeam }: IProps) => {
   const { teams } = useSelector((state: RootState) => state.team)
+  const userId = useSelector((state: RootState) => state.auth.user.userId)
   const color = randomColor()
+  const dispatch = useDispatch()
   const [formState, setFormState] = useState({
     title: "",
-    team: status === "Team" && teams.length ? teams[1].title : "Private",
+    team: pickedTeam,
     status,
     color: color,
   })
+  console.log(status, pickedTeam, formState.team)
+  useEffect(() => {
+    setFormState({ ...formState, team: pickedTeam, status })
+  }, [pickedTeam, status])
 
   const handleChange = (
     e: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
@@ -35,21 +44,43 @@ const AddBoardForm = ({ open, closeForm, status }: IProps) => {
     setFormState({ ...formState, [e.target.name as string]: e.target.value })
   }
 
-  const changeColor = (color: { color: string; title: string }) => {
+  const changeColor = (color: { color: string; title: color }) => {
     setFormState({ ...formState, color })
+  }
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    dispatch(
+      boardCreateStart({
+        board: {
+          ...formState,
+          team: formState.team ? formState.team : null,
+          color: formState.color.title,
+          lists: [],
+          date: Date.now().toString(),
+          creator: userId,
+        },
+      })
+    )
+    closeForm()
+    setFormState({
+      title: "",
+      team: status === "Team" && teams.length ? teams[0]._id : null,
+      status,
+      color: color,
+    })
   }
 
   if (open) {
     return (
-      <div className="addBoardClickCatcher">
-        <ClickAwayListener
-          onClickAway={closeForm}
-          catcher=".addBoardClickCatcher"
-        >
+      <div className="click-catcher">
+        <ClickAwayListener onClickAway={closeForm} catcher=".click-catcher">
           <div className={styles.addBoard}>
-            <div
+            <form
               className={styles.addBoardForm}
               style={{ backgroundColor: formState.color.color }}
+              id="form"
+              onSubmit={onSubmit}
             >
               <input
                 value={formState.title}
@@ -61,22 +92,21 @@ const AddBoardForm = ({ open, closeForm, status }: IProps) => {
                 onChange={handleChange}
               />
 
-              {!teams.length ||
-                (status === "Private" && (
-                  <Select
-                    value={formState.team ? formState.team : ""}
-                    onChange={handleChange}
-                    className={styles.select}
-                    inputProps={{ "aria-label": "Without label" }}
-                    name="team"
-                  >
-                    {teams.map((team) => (
-                      <MenuItem value={team.title} key={team._id}>
-                        {team.title}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                ))}
+              {teams.length && status === "Team" ? (
+                <Select
+                  value={formState.team ? formState.team : ""}
+                  onChange={handleChange}
+                  className={styles.select}
+                  inputProps={{ "aria-label": "Without label" }}
+                  name="team"
+                >
+                  {teams.map((team) => (
+                    <MenuItem value={team._id} key={team._id}>
+                      {team.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              ) : null}
 
               <Select
                 value={formState.status ? formState.status : ""}
@@ -89,6 +119,12 @@ const AddBoardForm = ({ open, closeForm, status }: IProps) => {
                   <LockOutlinedIcon fontSize="small" />
                   Private
                 </MenuItem>
+                {teams.length > 0 && (
+                  <MenuItem value="Team">
+                    <PeopleOutlinedIcon fontSize="small" />
+                    Team
+                  </MenuItem>
+                )}
                 <MenuItem value="Public">
                   <LanguageIcon fontSize="small" />
                   Public
@@ -99,7 +135,7 @@ const AddBoardForm = ({ open, closeForm, status }: IProps) => {
                 fontSize="small"
                 onClick={closeForm}
               />
-            </div>
+            </form>
             <div className={styles.colorPicker}>
               {colors.map((color) => (
                 <div
@@ -123,6 +159,8 @@ const AddBoardForm = ({ open, closeForm, status }: IProps) => {
               variant="contained"
               size="small"
               disabled={!formState.title}
+              type="submit"
+              form="form"
             >
               Create Board
             </Button>

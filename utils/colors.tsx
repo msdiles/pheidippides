@@ -9,7 +9,12 @@ export type color =
   | "sky"
   | "grey"
 
-export const colors = [
+interface IColors {
+  title: color
+  color: string
+}
+
+export const colors: IColors[] = [
   { title: "blue", color: "rgb(0, 121, 191)" },
   {
     title: "orange",

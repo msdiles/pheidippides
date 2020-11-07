@@ -1,0 +1,66 @@
+.addTeam {
+  top: 3rem;
+  position: relative;
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  height: 30rem;
+  width: 40rem;
+}
+
+.addTeamForm {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 0.5rem 0.5rem 0 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.titleInput{
+  width: 80%;
+  margin-bottom: 2rem !important;
+}
+
+.select{
+  width: 80%;
+  margin-bottom: 2rem !important;
+}
+
+.textarea{
+  width: 80%;
+  margin-bottom: 2rem !important;
+}
+
+.submitButton {
+  display: block;
+  color: white !important;
+  background-color: #5bbd3a !important;
+  text-transform: none !important;
+
+  &:hover {
+    box-shadow: none !important;
+    background-color: #57d357 !important;
+  }
+  &:disabled{
+    pointer-events: auto !important;
+    cursor: not-allowed !important;
+    color:black !important;
+    background-color: #f4f5f7 !important;
+    box-shadow: none !important;
+  }
+}
+
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  color: #000;
+}

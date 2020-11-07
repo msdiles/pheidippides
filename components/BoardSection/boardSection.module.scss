@@ -2,12 +2,54 @@ $backColor:#E7E9ED;
 
 .boardSection{
   width:23.5%;
-  height: 5rem;
+  height: 6rem;
   border-radius: 5px;
-  background-color: $backColor;
+  margin-right: 1.5%;
+  color:white;
   transition: background-color 0.2s;
   cursor: pointer;
+
+}
+
+.boardSectionInner{
+  height: 100%;
+  width: 100%;
+  position: relative;
   &:hover{
-    background-color: darken($backColor,10);
+    background-color: rgba(0,0,0,0.15);
+    .favoriteButton{
+
+      right: 0.7rem;
+      opacity: 1;
+    }
   }
+}
+
+.title{
+  padding: 0.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.teamName{
+  padding: 0;
+  margin: 0;
+}
+
+.boardSectionEmpty{
+  background-color: $backColor;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.favoriteButton{
+  position: absolute;
+  bottom: 0.7rem;
+  right: 0;
+  opacity: 0;
+  transition: all  200ms !important;
+  font-size: 1rem !important;
 }

@@ -6,3 +6,4 @@ export type MessageContent =
   | undefined
 
 export type BoardStatus = "Private" | "Team" | "Public"
+export type TeamStatus = "Private" | "Public"

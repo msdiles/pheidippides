@@ -9,9 +9,13 @@ import {
   BoardActionTypes,
   BoardChangeDonePayload,
   BoardChangeStartPayload,
+  BoardCreateDone,
   BoardCreateStartPayload,
   BoardDeleteDonePayload,
   BoardDeleteStartPayload,
+  BoardGetAllDonePayload,
+  BoardGetAllStart,
+  BoardGetAllStartPayload,
   BoardGetDonePayload,
   BoardGetStartPayload,
   CardChangeDonePayload,
@@ -63,6 +67,39 @@ export const boardGetStart = (
 
 export const boardGetDone = (payload: BoardGetDonePayload) => ({
   type: BoardActionTypes.BOARD_GET_DONE,
+  payload,
+})
+
+export const boardGetAllStart = (
+  payload: BoardGetAllStartPayload
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  Action<BoardActionTypes | AppActionsTypes>
+> => {
+  return async (dispatch, getState) => {
+    try {
+      await dispatch(boardLoading)
+      const token = getState().auth.user.userToken
+      const { result, status } = await API.getAllBoards(payload.userId, token)
+      if (status > 200 && status !== 401) {
+        throw new Error(result.message)
+      } else if (status === 401) {
+        dispatch(authRefresh({ action: boardGetAllStart, data: payload }))
+      } else {
+        dispatch(boardGetAllDone(result))
+      }
+    } catch (e) {
+      await dispatch(appSetMessage({ message: e.message, type: "error" }))
+    } finally {
+      await dispatch(boardEnding)
+    }
+  }
+}
+
+export const boardGetAllDone = (payload: BoardGetAllDonePayload) => ({
+  type: BoardActionTypes.BOARD_GET_ALL_DONE,
   payload,
 })
 
@@ -129,8 +166,8 @@ export const boardCreateStart = (
   }
 }
 
-export const boardCreateDone = (payload: BoardChangeDonePayload) => ({
-  type: BoardActionTypes.BOARD_CHANGE_DONE,
+export const boardCreateDone = (payload: BoardCreateDone) => ({
+  type: BoardActionTypes.BOARD_CREATE_DONE,
   payload,
 })
 

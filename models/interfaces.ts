@@ -1,7 +1,12 @@
+import { BoardStatus, TeamStatus } from "./types"
+import { color } from "@/utils/colors"
+
 export interface ITeamCreated {
   title: string
   creator: string
   date: string
+  description: string
+  status: TeamStatus
   members: string[]
   boards: string[]
 }
@@ -35,9 +40,10 @@ export interface IBoardCreated {
   title: string
   creator: string
   date: string
-  personal: boolean
+  status: BoardStatus
   team: string | null
   lists: IList[]
+  color: color
 }
 
 export interface IBoard extends IBoardCreated {

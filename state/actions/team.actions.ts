@@ -8,6 +8,8 @@ import {
   TeamCreateStartPayload,
   TeamDeleteDonePayload,
   TeamDeleteStartPayload,
+  TeamGetAllDonePayload,
+  TeamGetAllStartPayload,
   TeamGetDone,
   TeamGetDonePayload,
   TeamGetStart,
@@ -51,6 +53,39 @@ export const teamGetStart = (
 
 export const teamGetDone = (payload: TeamGetDonePayload) => ({
   type: TeamActionTypes.TEAM_GET_DONE,
+  payload,
+})
+
+export const teamGetAllStart = (
+  payload: TeamGetAllStartPayload
+): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  Action<TeamActionTypes | AppActionsTypes>
+> => {
+  return async (dispatch, getState) => {
+    try {
+      await dispatch(teamLoading)
+      const token = getState().auth.user.userToken
+      const { result, status } = await API.getAllTeam(payload.userId, token)
+      if (status > 200 && status !== 401) {
+        throw new Error(result.message)
+      } else if (status === 401) {
+        dispatch(authRefresh({ action: teamGetAllStart, data: payload }))
+      } else {
+        dispatch(teamGetAllDone(result))
+      }
+    } catch (e) {
+      await dispatch(appSetMessage({ message: e.message, type: "error" }))
+    } finally {
+      await dispatch(teamEnding)
+    }
+  }
+}
+
+export const teamGetAllDone = (payload: TeamGetAllDonePayload) => ({
+  type: TeamActionTypes.TEAM_GET_ALL_DONE,
   payload,
 })
 

@@ -82,6 +82,18 @@ class API {
     return await this.handleRequest(response)
   }
 
+  static async getAllTeam(id: string, token: string) {
+    const response = await http(
+      "team/all",
+      "POST",
+      {
+        data: { userId: id },
+      },
+      { Authorization: `bearer ${token}` }
+    )
+    return await this.handleRequest(response)
+  }
+
   static async deleteTeam(id: string, token: string) {
     const response = await http(
       "team/delete",
@@ -126,6 +138,18 @@ class API {
       "POST",
       {
         data: { id },
+      },
+      { Authorization: `bearer ${token}` }
+    )
+    return await this.handleRequest(response)
+  }
+
+  static async getAllBoards(userId: string, token: string) {
+    const response = await http(
+      "board/all",
+      "POST",
+      {
+        data: { userId },
       },
       { Authorization: `bearer ${token}` }
     )

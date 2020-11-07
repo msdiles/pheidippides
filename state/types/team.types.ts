@@ -8,6 +8,8 @@ export enum TeamActionTypes {
   TEAM_DELETE_DONE = "TEAM_DELETE_DONE",
   TEAM_CHANGE_START = "TEAM_CHANGE_START",
   TEAM_CHANGE_DONE = "TEAM_CHANGE_DONE",
+  TEAM_GET_ALL_START = "TEAM_GET_ALL_START",
+  TEAM_GET_ALL_DONE = "TEAM_GET_ALL_DONE",
   TEAM_GET_START = "TEAM_GET_START",
   TEAM_GET_DONE = "TEAM_GET_DONE",
   TEAM_LOADING = "TEAM_LOADING",
@@ -98,6 +100,27 @@ export interface TeamGetDone extends Action {
   payload: TeamGetDonePayload
 }
 
+//TEAM_GET_ALL_START
+export interface TeamGetAllStartPayload {
+  userId: string
+}
+
+export interface TeamGetAllStart extends Action {
+  type: TeamActionTypes.TEAM_GET_ALL_START
+  payload: TeamGetAllStartPayload
+}
+
+//TEAM_GET_ALL_DONE
+export interface TeamGetAllDonePayload {
+  success: boolean
+  target: ITeam[]
+}
+
+export interface TeamGetAllDone extends Action {
+  type: TeamActionTypes.TEAM_GET_ALL_DONE
+  payload: TeamGetAllDonePayload
+}
+
 //TEAM_LOADING
 export interface TeamLoading extends Action {
   type: TeamActionTypes.TEAM_LOADING
@@ -119,3 +142,5 @@ export type TeamActions =
   | TeamDeleteStart
   | TeamLoading
   | TeamEnding
+  | TeamGetAllStart
+  | TeamGetAllDone
