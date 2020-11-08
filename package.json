@@ -1,6 +1,6 @@
 {
   "name": "pheidippides",
-  "version": "0.0.6git pus",
+  "version": "0.0.6",
   "private": true,
   "scripts": {
     "dev": "next dev",
