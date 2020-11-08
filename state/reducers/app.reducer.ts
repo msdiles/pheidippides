@@ -1,10 +1,11 @@
 import { AppActionsTypes, AppActions } from "../types/app.types"
 import { MessageContent } from "@/models/types"
+import { Reducer } from "react"
 
 interface IApp {
   message: {
     type: MessageContent
-    content: ""
+    content: string
   }
 }
 
