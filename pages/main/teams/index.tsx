@@ -1,29 +1,23 @@
 import MainSidebar from "@/components/MainSidebar"
 import MainLayout from "@/components/layouts/MainLayout"
-import styles from "./teams.module.scss"
-import { RootState } from "@/state/reducers"
-import { useDispatch, useSelector } from "react-redux"
 import TeamSection from "@/components/TeamSection"
 import AddTeamFrom from "@/components/AddTeamForm"
-import { useEffect, useState } from "react"
-import { boardGetAllStart } from "@/state/actions/board.actions"
-import { teamGetAllStart } from "@/state/actions/team.actions"
+import useAddTeamFormState from "@/hooks/useAddTeamFormState"
+import useTeamsPage from "@/hooks/useTeamsPage"
+import styles from "./teams.module.scss"
+import Head from "next/head"
 
 const teams = () => {
-  const teams = useSelector((state: RootState) => state.team.teams)
-  const [isFormOpen, setIsFormOpen] = useState(false)
-  const userId = useSelector((state: RootState) => state.auth.user.userId)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(boardGetAllStart({ userId }))
-    dispatch(teamGetAllStart({ userId }))
-  }, [])
+  const { closeForm, isTeamFormOpen, setIsTeamFromOpen } = useAddTeamFormState()
+  const { teams } = useTeamsPage()
 
   return (
-    <MainLayout style={{ overflow: isFormOpen ? "hidden" : "auto" }}>
+    <MainLayout style={{ overflow: isTeamFormOpen ? "hidden" : "auto" }}>
+      <Head>
+        <title>Teams | Pheidippides</title>
+      </Head>
       <div className="main-section">
-        <MainSidebar />
+        <MainSidebar setIsFormOpen={setIsTeamFromOpen} />
         <div className={styles.main}>
           {teams.map((team) => (
             <TeamSection team={team} key={team._id} />
@@ -32,12 +26,12 @@ const teams = () => {
             empty={true}
             openForm={(e: React.MouseEvent) => {
               e.stopPropagation()
-              setIsFormOpen(true)
+              setIsTeamFromOpen(true)
             }}
           />
         </div>
       </div>
-      <AddTeamFrom open={isFormOpen} closeForm={() => setIsFormOpen(false)} />
+      <AddTeamFrom open={isTeamFormOpen} closeForm={closeForm} />
     </MainLayout>
   )
 }

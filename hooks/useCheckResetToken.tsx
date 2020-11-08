@@ -2,7 +2,7 @@ import API from "@/utils/API"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { FetchResult } from "../models/enums"
+import { FetchResult } from "@/models/enums"
 import { appSetMessage } from "@/state/actions/app.actions"
 
 const useCheckResetToken = () => {

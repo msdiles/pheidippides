@@ -1,5 +1,5 @@
 import { Action } from "redux"
-import { ITeam, ITeamCreated } from "../../models/interfaces"
+import { ITeam, ITeamCreated } from "@/models/interfaces"
 
 export enum TeamActionTypes {
   TEAM_CREATE_START = "TEAM_CREATE_START",

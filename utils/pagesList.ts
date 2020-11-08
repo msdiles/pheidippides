@@ -1,4 +1,4 @@
-import { PageAccess } from "../models/enums"
+import { PageAccess } from "@/models/enums"
 
 export default [
   { name: "home", path: "/", access: PageAccess.All },
@@ -14,4 +14,9 @@ export default [
   { name: "mainHome", path: "/main/home", access: PageAccess.OnlyAuth },
   { name: "mainBoards", path: "/main/boards", access: PageAccess.OnlyAuth },
   { name: "mainTeams", path: "/main/teams", access: PageAccess.OnlyAuth },
+  {
+    name: "mainTeam",
+    path: "/main/teams/[title]",
+    access: PageAccess.OnlyAuth,
+  },
 ]

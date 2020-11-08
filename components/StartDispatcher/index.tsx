@@ -1,7 +1,6 @@
-import {useDispatch} from "react-redux"
-import {useEffect} from "react"
-import {authRefresh, authRefreshStart} from "@/state/actions/auth.actions"
-import {NextPageContext} from "next"
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { authRefresh } from "@/state/actions/auth.actions"
 
 const StartDispatcher = () => {
   const dispatch = useDispatch()
@@ -10,6 +9,5 @@ const StartDispatcher = () => {
   }, [])
   return null
 }
-
 
 export default StartDispatcher

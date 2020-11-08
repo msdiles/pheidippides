@@ -1,12 +1,11 @@
 import http from "@/utils/http"
 import {
-  IBoard,
   IBoardCreated,
   ICardCreated,
   IListCreated,
   ITeam,
   ITeamCreated,
-} from "../models/interfaces"
+} from "@/models/interfaces"
 
 class API {
   static handleRequest = async (response: Response) => {
@@ -106,7 +105,7 @@ class API {
     return await this.handleRequest(response)
   }
 
-  static async changeTeam(team: ITeamCreated, token: string) {
+  static async changeTeam(team: ITeam, token: string) {
     const response = await http(
       "team/change",
       "POST",
@@ -285,6 +284,20 @@ class API {
       "POST",
       {
         data: { card },
+      },
+      { Authorization: `bearer ${token}` }
+    )
+    return await this.handleRequest(response)
+  }
+
+  //User
+
+  static async setFavorite(userId: string, favorite: string[], token: string) {
+    const response = await http(
+      "user/favorite",
+      "POST",
+      {
+        data: { userId, favorite },
       },
       { Authorization: `bearer ${token}` }
     )

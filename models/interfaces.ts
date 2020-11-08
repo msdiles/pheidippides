@@ -11,8 +11,15 @@ export interface ITeamCreated {
   boards: string[]
 }
 
-export interface ITeam extends ITeamCreated {
+export interface ITeam {
   _id: string
+  title: string
+  creator: string
+  date: string
+  description: string
+  status: TeamStatus
+  boards: string[]
+  members: { username: string; _id: string; email: string }[]
 }
 
 export interface ICardCreated {

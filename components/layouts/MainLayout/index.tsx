@@ -1,5 +1,5 @@
 import styles from "./mainLayout.module.scss"
-import { ReactElement, ReactNode } from "react"
+import { ReactNode } from "react"
 import Navbar from "@/components/Navbar"
 
 interface IProps extends React.PropsWithChildren<any> {

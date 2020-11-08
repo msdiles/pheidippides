@@ -1,4 +1,5 @@
 import { AuthActions, AuthActionsTypes } from "../types/auth.types"
+import { UserActions, UserActionsTypes } from "@/state/types/user.types"
 
 interface IAuth {
   loading: boolean
@@ -26,17 +27,24 @@ export const authState: IAuth = {
   },
 }
 
-const authReducer = (state = authState, action: AuthActions) => {
+const authReducer = (state = authState, action: AuthActions | UserActions) => {
   switch (action.type) {
+    case UserActionsTypes.USER_LOADING:
     case AuthActionsTypes.AUTH_LOADING:
       return {
         ...state,
         loading: true,
       }
+    case UserActionsTypes.USER_ENDING:
     case AuthActionsTypes.AUTH_ENDING:
       return {
         ...state,
         loading: false,
+      }
+    case UserActionsTypes.USER_SET_FAVORITE_DONE:
+      return {
+        ...state,
+        user: { ...state.user, favoriteBoards: action.payload.target },
       }
     case AuthActionsTypes.AUTH_LOGOUT_DONE:
       return {
@@ -64,7 +72,7 @@ const authReducer = (state = authState, action: AuthActions) => {
           userId: action.payload.user.id,
           userRole: action.payload.user.role,
           userToken: action.payload.accessToken,
-          favoriteBoards: [],
+          favoriteBoards: action.payload.user.favoriteBoards,
         },
       }
     case AuthActionsTypes.AUTH_REFRESH_DONE:
@@ -76,7 +84,7 @@ const authReducer = (state = authState, action: AuthActions) => {
           userId: action.payload.user.id,
           userRole: action.payload.user.role,
           userToken: action.payload.accessToken,
-          favoriteBoards: [],
+          favoriteBoards: action.payload.user.favoriteBoards,
         },
       }
     default:

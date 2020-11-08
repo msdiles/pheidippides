@@ -1,19 +1,16 @@
-import styles from "./addBoardForm.module.scss"
 import MenuItem from "@material-ui/core/MenuItem"
 import Select from "@material-ui/core/Select"
 import CloseIcon from "@material-ui/icons/Close"
-import ClickAwayListener from "@/components/ClickAwayListener/intex"
-import { color, colors, randomColor } from "@/utils/colors"
 import { Button } from "@material-ui/core"
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/state/reducers"
-import { BoardStatus } from "../../models/types"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import LanguageIcon from "@material-ui/icons/Language"
 import CheckIcon from "@material-ui/icons/Check"
 import PeopleOutlinedIcon from "@material-ui/icons/PeopleOutlined"
-import { boardCreateStart } from "@/state/actions/board.actions"
+import ClickAwayListener from "@/components/ClickAwayListener/intex"
+import useAddBoardForm from "@/components/AddBoardForm/useAddBoardForm"
+import { BoardStatus } from "@/models/types"
+import { colors } from "@/utils/colors"
+import styles from "./addBoardForm.module.scss"
 
 interface IProps {
   open: boolean
@@ -23,53 +20,13 @@ interface IProps {
 }
 
 const AddBoardForm = ({ open, closeForm, status, pickedTeam }: IProps) => {
-  const { teams } = useSelector((state: RootState) => state.team)
-  const userId = useSelector((state: RootState) => state.auth.user.userId)
-  const color = randomColor()
-  const dispatch = useDispatch()
-  const [formState, setFormState] = useState({
-    title: "",
-    team: pickedTeam,
-    status,
-    color: color,
-  })
-  console.log(status, pickedTeam, formState.team)
-  useEffect(() => {
-    setFormState({ ...formState, team: pickedTeam, status })
-  }, [pickedTeam, status])
-
-  const handleChange = (
-    e: React.ChangeEvent<{ name?: string | undefined; value: unknown }>
-  ) => {
-    setFormState({ ...formState, [e.target.name as string]: e.target.value })
-  }
-
-  const changeColor = (color: { color: string; title: color }) => {
-    setFormState({ ...formState, color })
-  }
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    dispatch(
-      boardCreateStart({
-        board: {
-          ...formState,
-          team: formState.team ? formState.team : null,
-          color: formState.color.title,
-          lists: [],
-          date: Date.now().toString(),
-          creator: userId,
-        },
-      })
-    )
-    closeForm()
-    setFormState({
-      title: "",
-      team: status === "Team" && teams.length ? teams[0]._id : null,
-      status,
-      color: color,
-    })
-  }
+  const {
+    handleChange,
+    teams,
+    onSubmit,
+    formState,
+    changeColor,
+  } = useAddBoardForm({ status, closeForm, pickedTeam })
 
   if (open) {
     return (
@@ -119,7 +76,7 @@ const AddBoardForm = ({ open, closeForm, status, pickedTeam }: IProps) => {
                   <LockOutlinedIcon fontSize="small" />
                   Private
                 </MenuItem>
-                {teams.length > 0 && (
+                {teams.length > 0 && status === "Team" && (
                   <MenuItem value="Team">
                     <PeopleOutlinedIcon fontSize="small" />
                     Team

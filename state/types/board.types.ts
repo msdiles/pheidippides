@@ -5,7 +5,7 @@ import {
   IListCreated,
   ICard,
   ICardCreated,
-} from "../../models/interfaces"
+} from "@/models/interfaces"
 import { Action } from "redux"
 
 export enum BoardActionTypes {

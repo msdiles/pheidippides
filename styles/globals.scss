@@ -105,3 +105,11 @@ html, body, #__next {
   align-items: center;
   justify-content: flex-start;
 }
+
+.Mui-selected {
+  color: #0079bf !important;
+  background-color: #e4f0f6 !important;
+  svg{
+    color: #0079bf !important;
+  }
+}

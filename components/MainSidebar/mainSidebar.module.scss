@@ -1,0 +1,40 @@
+
+.sidebar {
+  position: sticky;
+  height: 10rem;
+  top: 4rem;
+}
+
+.listItem {
+  width: 15rem !important;
+  padding: 0.2rem 0.2rem 0.2rem 1rem !important;
+  margin: 0 0 0.5rem !important;
+  border-radius: 5px !important;
+
+  & div {
+    min-width: 0 !important;
+  }
+
+  & div span {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  & svg {
+    margin-right: 1rem;
+  }
+}
+
+.teamList {
+  position: relative;
+}
+
+.teamListTitle {
+  margin: 1rem 0 0 1rem;
+}
+
+.addButton {
+  position: absolute !important;
+  right: 0.2rem;
+  top: -0.3rem;
+}

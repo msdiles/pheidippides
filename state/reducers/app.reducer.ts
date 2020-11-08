@@ -1,5 +1,5 @@
-import {AppActionsTypes, AppActions} from "../types/app.types"
-import {MessageContent} from "../../models/types"
+import { AppActionsTypes, AppActions } from "../types/app.types"
+import { MessageContent } from "@/models/types"
 
 interface IApp {
   message: {
@@ -11,19 +11,24 @@ interface IApp {
 export const appState: IApp = {
   message: {
     type: undefined,
-    content: ""
-  }
+    content: "",
+  },
 }
 
 const appReducer = (state = appState, action: AppActions) => {
   switch (action.type) {
     case AppActionsTypes.APP_SET_MESSAGE:
       return {
-        ...state, message: {content: action.payload.message || "", type: action.payload.type}
+        ...state,
+        message: {
+          content: action.payload.message || "",
+          type: action.payload.type || undefined,
+        },
       }
     case AppActionsTypes.APP_REMOVE_MESSAGE:
       return {
-        ...state, message: {content: "", type: undefined}
+        ...state,
+        message: { content: "", type: undefined },
       }
     default:
       return state

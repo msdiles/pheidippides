@@ -38,3 +38,6 @@ export const colors: IColors[] = [
 export const randomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)]
 }
+
+export const getColor = (color: string) =>
+  colors.find((c) => c.title === color)?.color || "rgb(0, 121, 191)"

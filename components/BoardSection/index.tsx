@@ -1,5 +1,6 @@
-import { IBoard } from "../../models/interfaces"
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded"
+import { IBoard } from "@/models/interfaces"
+import { getColor } from "@/utils/colors"
 import styles from "./boardSection.module.scss"
 
 interface IProps {
@@ -7,9 +8,18 @@ interface IProps {
   empty?: boolean
   openForm?: (e: React.MouseEvent) => void
   teamTitle?: string
+  setFavorite?: (id: string) => void
+  isFavorite?: boolean
 }
 
-const BoardSection = ({ board, empty, openForm, teamTitle }: IProps) => {
+const BoardSection = ({
+  board,
+  empty,
+  openForm,
+  teamTitle,
+  setFavorite = (id: string) => {},
+  isFavorite,
+}: IProps) => {
   if (empty) {
     return (
       <div
@@ -23,14 +33,18 @@ const BoardSection = ({ board, empty, openForm, teamTitle }: IProps) => {
     return (
       <div
         className={styles.boardSection}
-        style={{ backgroundColor: board.color }}
+        style={{ backgroundColor: getColor(board.color) }}
       >
         <div className={styles.boardSectionInner}>
           <p className={styles.title}>{board.title}</p>
           {teamTitle && <p className={styles.teamName}>{teamTitle}</p>}
           <StarBorderRoundedIcon
-            className={styles.favoriteButton}
+            className={
+              styles.favoriteButton +
+              (isFavorite ? " " + styles.favoriteButtonActive : "")
+            }
             fontSize="small"
+            onClick={() => setFavorite(board._id)}
           />
         </div>
       </div>

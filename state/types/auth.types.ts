@@ -1,4 +1,4 @@
-import {Action, AnyAction} from "redux"
+import { Action } from "redux"
 
 export enum AuthActionsTypes {
   AUTH_LOADING = "AUTH_LOADING",
@@ -8,19 +8,18 @@ export enum AuthActionsTypes {
   AUTH_LOGOUT_START = "AUTH_LOGOUT_START",
   AUTH_LOGOUT_DONE = "AUTH_LOGOUT_DONE",
   AUTH_REFRESH_START = "AUTH_REFRESH_START",
-  AUTH_REFRESH_DONE = "AUTH_REFRESH_DONE"
+  AUTH_REFRESH_DONE = "AUTH_REFRESH_DONE",
 }
-
 
 //AUTH_LOGIN_START
 export interface AuthLoginStartPayload {
   email: string
   password: string
-  fingerprint:string
+  fingerprint: string
 }
 
 export interface AuthLoginStart extends Action {
-  type:  AuthActionsTypes.AUTH_LOGIN_START
+  type: AuthActionsTypes.AUTH_LOGIN_START
   payload: AuthLoginStartPayload
 }
 
@@ -32,12 +31,13 @@ export interface AuthLoginDonePayload {
     id: string
     name: string
     role: string[]
+    favoriteBoards: string[]
   }
   accessToken: string
 }
 
 export interface AuthLoginDone extends Action {
-  type:  AuthActionsTypes.AUTH_LOGIN_DONE
+  type: AuthActionsTypes.AUTH_LOGIN_DONE
   payload: AuthLoginDonePayload
 }
 
@@ -52,7 +52,7 @@ export interface AuthLogoutStart extends Action {
 
 //AUTH_LOGOUT_DONE
 export interface AuthLogoutDone extends Action {
-  type:  AuthActionsTypes.AUTH_LOGOUT_DONE
+  type: AuthActionsTypes.AUTH_LOGOUT_DONE
 }
 
 //
@@ -64,7 +64,7 @@ export interface AuthRefreshStartPayload {
 }
 
 export interface AuthRefreshStart extends Action {
-  type:  AuthActionsTypes.AUTH_REFRESH_START
+  type: AuthActionsTypes.AUTH_REFRESH_START
   payload?: AuthRefreshStartPayload
 }
 
@@ -74,12 +74,13 @@ export interface AuthRefreshDonePayload {
     id: string
     name: string
     role: string[]
+    favoriteBoards: string[]
   }
   accessToken: string
 }
 
 export interface AuthRefreshDone extends Action {
-  type:  AuthActionsTypes.AUTH_REFRESH_DONE
+  type: AuthActionsTypes.AUTH_REFRESH_DONE
   payload: AuthRefreshDonePayload
 }
 
@@ -87,20 +88,20 @@ export interface AuthRefreshDone extends Action {
 
 //AUTH_LOADING
 export interface AuthLoading extends Action {
-  type:  AuthActionsTypes.AUTH_LOADING
+  type: AuthActionsTypes.AUTH_LOADING
 }
 
 //
 
 //AUTH_ENDING
 export interface AuthEnding extends Action {
-  type:  AuthActionsTypes.AUTH_ENDING
+  type: AuthActionsTypes.AUTH_ENDING
 }
 
 //
 
 export type AuthActions =
-  AuthLoginStart
+  | AuthLoginStart
   | AuthLoginDone
   | AuthLogoutStart
   | AuthLogoutDone

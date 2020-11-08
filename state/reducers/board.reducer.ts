@@ -1,5 +1,5 @@
 import { BoardActions, BoardActionTypes } from "@/state/types/board.types"
-import { IBoard } from "../../models/interfaces"
+import { IBoard } from "@/models/interfaces"
 
 interface IBoardState {
   boards: IBoard[]

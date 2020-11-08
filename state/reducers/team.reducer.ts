@@ -1,5 +1,5 @@
 import { TeamActions, TeamActionTypes } from "@/state/types/team.types"
-import { ITeam } from "../../models/interfaces"
+import { ITeam } from "@/models/interfaces"
 
 interface ITeamState {
   teams: ITeam[]

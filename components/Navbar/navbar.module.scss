@@ -1,6 +1,7 @@
 .navbar{
   height: 2.5rem;
-  position: relative;
+  position: sticky;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
@@ -44,4 +45,15 @@
 
 .navbarProfileList{
 
+}
+
+
+.button{
+  background-color: #57d357 !important;
+  margin-right: 1rem !important;
+}
+
+.link{
+  text-decoration: none;
+  color:white !important;
 }

@@ -14,7 +14,6 @@ import {
   BoardDeleteDonePayload,
   BoardDeleteStartPayload,
   BoardGetAllDonePayload,
-  BoardGetAllStart,
   BoardGetAllStartPayload,
   BoardGetDonePayload,
   BoardGetStartPayload,

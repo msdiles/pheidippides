@@ -1,4 +1,4 @@
-import {MessageContent} from "../../models/types"
+import { MessageContent } from "@/models/types"
 
 export enum AppActionsTypes {
   APP_SET_MESSAGE = "APP_SET_MESSAGE",
@@ -24,6 +24,5 @@ export interface AppRemoveMessage {
 }
 
 //
-
 
 export type AppActions = AppSetMessage | AppRemoveMessage
