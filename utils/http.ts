@@ -1,13 +1,20 @@
 type URLMethod = "GET" | "PUT" | "POST" | "DELETE"
 
-const http = async (url: string, method: URLMethod = "GET", data?: Object, headers?: { [key: string]: string }) => {
-  headers = {...headers, "Content-type": "Application/json"}
+console.log(process.env, process.env.NEXT_PUBLIC_API_URL, process.env.API_URL)
+
+const http = async (
+  url: string,
+  method: URLMethod = "GET",
+  data?: Object,
+  headers?: { [key: string]: string }
+) => {
+  headers = { ...headers, "Content-type": "Application/json" }
   if (method === "GET") {
     try {
       return await fetch(process.env.NEXT_PUBLIC_API_URL + url + data, {
         method,
-        credentials: 'include',
-        headers
+        credentials: "include",
+        headers,
       })
     } catch (e) {
       throw new Error(e.message)
@@ -16,15 +23,14 @@ const http = async (url: string, method: URLMethod = "GET", data?: Object, heade
     try {
       return await fetch(process.env.NEXT_PUBLIC_API_URL + url, {
         method,
-        credentials: 'include',
+        credentials: "include",
         headers,
-        body: JSON.stringify({...data})
+        body: JSON.stringify({ ...data }),
       })
     } catch (e) {
       throw new Error(e.message)
     }
   }
-
 }
 
 export default http
