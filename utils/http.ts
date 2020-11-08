@@ -1,6 +1,6 @@
 type URLMethod = "GET" | "PUT" | "POST" | "DELETE"
 
-console.log(process.env, process.env.NEXT_PUBLIC_API_URL, process.env.API_URL)
+console.log(process.env.NEXT_PUBLIC_API_URL)
 
 const http = async (
   url: string,
@@ -21,6 +21,7 @@ const http = async (
     }
   } else {
     try {
+      console.log(process.env.NEXT_PUBLIC_API_URL + url)
       return await fetch(process.env.NEXT_PUBLIC_API_URL + url, {
         method,
         credentials: "include",
