@@ -19,4 +19,9 @@ export default [
     path: "/main/teams/[title]",
     access: PageAccess.OnlyAuth,
   },
+  {
+    name: "board",
+    path: "/board/[title]",
+    access: PageAccess.OnlyAuth,
+  },
 ]

@@ -12,8 +12,14 @@ import { RootState } from "@/state/reducers"
 import { Button } from "@material-ui/core"
 import Link from "next/link"
 import styles from "./navbar.module.scss"
+import { darken } from "@material-ui/core/styles/colorManipulator"
+// import { darken } from "@/utils/colors"
 
-const Navbar = () => {
+interface IProps {
+  color?: string
+}
+
+const Navbar = ({ color }: IProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn)
   const open = Boolean(anchorEl)
@@ -23,7 +29,10 @@ const Navbar = () => {
 
   if (isLoggedIn) {
     return (
-      <div className={styles.navbar}>
+      <div
+        className={styles.navbar}
+        style={color ? { backgroundColor: darken(color, 0.15) } : undefined}
+      >
         <div className={styles.navbarLeft}>
           <IconButton
             size="small"

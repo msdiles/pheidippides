@@ -3,14 +3,13 @@ import MainLayout from "@/components/layouts/MainLayout"
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded"
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined"
 import PeopleOutlinedIcon from "@material-ui/icons/PeopleOutlined"
-import BoardSection from "@/components/BoardSection"
 import AddBoardForm from "@/components/AddBoardForm"
 import useAddTeamFormState from "@/hooks/useAddTeamFormState"
 import AddTeamFrom from "@/components/AddTeamForm"
 import useBoardPage from "@/hooks/useBoardPage"
-import { IBoard } from "@/models/interfaces"
-import styles from "./boards.module.scss"
 import Head from "next/head"
+import BoardList from "@/components/BoardList"
+import styles from "./boards.module.scss"
 
 const MainBoards = () => {
   const { closeForm, isTeamFormOpen, setIsTeamFromOpen } = useAddTeamFormState()
@@ -18,7 +17,6 @@ const MainBoards = () => {
     openForm,
     changeFavorite,
     personalBoards,
-    favoriteBoardsId,
     favoriteBoards,
     teams,
     isBoardFormOpen,
@@ -40,65 +38,45 @@ const MainBoards = () => {
       <div className="main-section">
         <MainSidebar setIsFormOpen={setIsTeamFromOpen} />
         <div className={styles.main}>
-          {!!favoriteBoards.length && (
-            <div className={styles.boardsList}>
-              <h4 className={styles.boardsListTitle}>
+          <BoardList
+            renderCondition={!!favoriteBoards.length}
+            boards={favoriteBoards}
+            boardListTitle={
+              <>
                 <StarBorderRoundedIcon />
                 &nbsp; Favorite Boards
-              </h4>
-              {(favoriteBoards as IBoard[]).map((board) => (
-                <BoardSection
-                  key={board._id}
-                  board={board}
-                  teamTitle={
-                    teams.find((team) => team._id === board.team)?.title
-                  }
-                  setFavorite={changeFavorite}
-                  isFavorite={favoriteBoardsId.includes(board._id)}
-                />
-              ))}
-            </div>
-          )}
-          <div className={styles.boardsList}>
-            <h4 className={styles.boardsListTitle}>
-              <PersonOutlineOutlinedIcon />
-              &nbsp; Personal Boards
-            </h4>
-            {(personalBoards as IBoard[]).map((board) => (
-              <BoardSection
-                board={board}
-                key={board._id}
-                setFavorite={changeFavorite}
-                isFavorite={favoriteBoardsId.includes(board._id)}
-              />
-            ))}
-            <BoardSection
-              empty={true}
-              openForm={(e) => openForm(e, "Private", null)}
-            />
-          </div>
+              </>
+            }
+            changeFavorite={changeFavorite}
+          />
+          <BoardList
+            boards={personalBoards}
+            boardListTitle={
+              <>
+                <PersonOutlineOutlinedIcon />
+                &nbsp; Personal Boards
+              </>
+            }
+            changeFavorite={changeFavorite}
+            createNewField={true}
+            openForm={(e) => openForm(e, "Private", null)}
+          />
           {teams.map((team) => (
-            <div className={styles.boardsList} key={team._id}>
-              <h4 className={styles.boardsListTitle}>
-                <PeopleOutlinedIcon />
-                &nbsp;
-                {team.title}'s Boards
-              </h4>
-              {(teamsBoards as IBoard[]).map((board) =>
-                board.team === team._id ? (
-                  <BoardSection
-                    board={board}
-                    key={board._id}
-                    setFavorite={changeFavorite}
-                    isFavorite={favoriteBoardsId.includes(board._id)}
-                  />
-                ) : null
-              )}
-              <BoardSection
-                empty={true}
-                openForm={(e) => openForm(e, "Team", team._id)}
-              />
-            </div>
+            <BoardList
+              key={team._id}
+              boards={teamsBoards}
+              team={team}
+              boardListTitle={
+                <>
+                  <PeopleOutlinedIcon />
+                  &nbsp;
+                  {team.title}'s Boards
+                </>
+              }
+              changeFavorite={changeFavorite}
+              createNewField={true}
+              openForm={(e) => openForm(e, "Team", team._id)}
+            />
           ))}
         </div>
       </div>
