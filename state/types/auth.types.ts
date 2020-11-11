@@ -31,6 +31,7 @@ export interface AuthLoginDonePayload {
     id: string
     name: string
     role: string[]
+    email: string
     favoriteBoards: string[]
   }
   accessToken: string
@@ -74,6 +75,7 @@ export interface AuthRefreshDonePayload {
     id: string
     name: string
     role: string[]
+    email: string
     favoriteBoards: string[]
   }
   accessToken: string

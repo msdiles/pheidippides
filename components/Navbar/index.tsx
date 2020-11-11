@@ -68,7 +68,7 @@ const Navbar = ({ color }: IProps) => {
           <MenuItem
             onClick={() => {
               closeMenu()
-              router.push("/router")
+              router.push("/profile")
             }}
           >
             Profile

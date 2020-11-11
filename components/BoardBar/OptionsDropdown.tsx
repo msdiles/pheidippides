@@ -18,14 +18,11 @@ const OptionsDropdown = ({ isCalendarOpen, setCalendarOpen }: IProps) => {
   const [chosen, setChosen] = useState("Board")
 
   return (
-    <>
+    <div>
       <div
         className={styles.optionsDropdown}
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          setOpen(!open)
-        }}
+        tabIndex={0}
+        onClick={() => setTimeout(() => setOpen(!open), 0)}
       >
         <ViewWeekOutlinedIcon fontSize="small" />
         {chosen}
@@ -35,9 +32,13 @@ const OptionsDropdown = ({ isCalendarOpen, setCalendarOpen }: IProps) => {
         <ClickAwayListener onClickAway={() => setOpen(false)}>
           <List className={styles.optionsDropdownList}>
             <ListItem
+              tabIndex={0}
               button
               selected={chosen === "Board"}
               onClick={() => setChosen("Board")}
+              className={
+                chosen === "Board" ? styles.optionsDropdownListActive : ""
+              }
             >
               <ListItemText
                 primary={
@@ -50,9 +51,13 @@ const OptionsDropdown = ({ isCalendarOpen, setCalendarOpen }: IProps) => {
               />
             </ListItem>
             <ListItem
+              tabIndex={0}
               button
               selected={chosen === "Calendar"}
               onClick={() => setChosen("Calendar")}
+              className={
+                chosen === "Calendar" ? styles.optionsDropdownListActive : ""
+              }
             >
               <ListItemText
                 primary={
@@ -69,7 +74,7 @@ const OptionsDropdown = ({ isCalendarOpen, setCalendarOpen }: IProps) => {
           </List>
         </ClickAwayListener>
       )}
-    </>
+    </div>
   )
 }
 

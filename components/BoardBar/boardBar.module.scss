@@ -1,4 +1,4 @@
-@mixin element{
+@mixin element {
   margin-right: 0.4rem;
   margin-bottom: 0.3rem;
   border-radius: 3px;
@@ -7,9 +7,13 @@
   font-size: 0.9rem;
   font-weight: lighter;
   cursor: pointer;
+  outline: none;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.34);
+  }
+  &:active {
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -33,32 +37,45 @@
   }
 }
 
-.optionsDropdownList{
+.optionsDropdownList {
   position: absolute !important;
   width: 19rem;
-  top:5.5rem;
+  top: 5.5rem;
+  left: 0.5rem;
   background-color: white;
-  color:black;
+  color: black;
   padding: 0 !important;
   border-radius: 3px;
 
-  div{
+  div {
     padding: 0.1rem 0.2rem !important;
     margin: 0;
     font-size: 0.9rem !important;
   }
-  p{
+
+  p {
     font-size: 0.8rem !important;
   }
-  svg{
+
+  svg {
     margin-right: 0.3rem;
   }
 }
 
-.optionsDropdownTitle{
+.optionsDropdownListActive {
+  background: #e2e6e9 !important;
+  color: #172b4d !important;
+
+  svg {
+    fill: #172b4d;
+  }
+}
+
+.optionsDropdownTitle {
   display: flex;
   align-items: center;
-  & svg{
+
+  & svg {
     font-size: 1rem;
   }
 }
@@ -66,10 +83,27 @@
 .boardTitle {
   @include element;
   background-color: transparent;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   float: left;
+  padding: 0.35rem 0.4rem;
 }
+
+input.boardTitleActive {
+  padding: 0.25rem 0.4rem;
+  outline: none !important;
+  background-color: white !important;
+  border: 2px solid #0079bf;
+  max-width: 95%;
+}
+
+
+.boardTitleUnActive {
+  visibility: hidden;
+  position: absolute;
+
+}
+
 
 .favoriteButton {
   @include element;
@@ -81,7 +115,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  & svg{
+
+  & svg {
     font-size: 1.2rem;
   }
 }
@@ -97,7 +132,8 @@
   display: flex;
   justify-content: center;
   padding-right: 0.5rem;
-  & svg{
+
+  & svg {
     font-size: 1rem;
     margin-right: 0.5rem;
   }
@@ -108,17 +144,21 @@
   float: left;
   padding: 0;
   background-color: transparent;
-  &>button{
+
+  & > button {
     padding: 0;
   }
-  & svg{
+
+  & svg {
     font-size: 2rem;
-    color:white;
+    color: white;
   }
+
   &:hover {
     background-color: transparent;
   }
-  &:hover svg path{
+
+  &:hover svg path {
     fill: rgba(255, 255, 255, 0.8);
   }
 }
@@ -133,19 +173,177 @@
   float: right;
   display: flex;
   justify-content: center;
+
   & svg {
     margin-right: 0.5rem;
     font-size: 1rem;
   }
 }
 
-.divider{
+.divider {
   @include element;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   cursor: auto;
   float: left;
   padding: 0;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   height: 1rem;
+}
+
+.list {
+  position: absolute;
+  top: 5.5rem;
+  background-color: white;
+  border-radius: 3px;
+  width: 18.25rem;
+  color: #5e6c84;
+}
+
+.listTitle {
+  color: #5e6c84;
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  margin: 0 auto;
+
+  span {
+    padding: 0.8rem 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(9, 30, 66, .13);
+  }
+}
+
+.listItem {
+  padding: 0.8rem 0.7rem;
+  color: #172b4d;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: rgba(9, 30, 66, .04);
+  }
+
+  &:active {
+    background-color: #e4f0f6;
+  }
+
+  span {
+    display: block;
+    margin-top: 0.2rem;
+    color: #5e6c84;
+    font-size: 0.75rem;
+  }
+}
+
+.listItemTitle {
+  display: flex;
+  align-items: center;
+
+  svg {
+    font-size: 0.9rem;
+
+    &:nth-of-type(2) {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.listContent {
+  padding: 0.5rem 0;
+}
+
+.closeButton {
+  color: #6b778c;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  font-size: 1rem !important;
+  cursor: pointer;
+}
+
+.changeMessage {
+  color: #5e6c84;
+  margin: 0.3rem 0;
+  padding: 0 0 0 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.select {
+  margin: 0 0.7rem;
+  width: calc(18.25rem - (0.7rem * 2));
+
+  select {
+    border-radius: 3px;
+    padding: 0.1rem 0.2rem !important;
+  }
+}
+
+.changeButton {
+  margin: 1rem 0.7rem 0.5rem !important;
+  background-color: #5aac44 !important;
+  padding: 0.3rem 1.2rem !important;
+  color: white !important;
+  text-transform: capitalize !important;
+  font-weight: lighter !important;
+}
+
+.miniProfile {
+  svg {
+    float: left;
+    font-size: 3.5rem !important;
+    margin: 0.5rem;
+  }
+}
+
+.miniProfileInfo {
+  float: left;
+  margin: 0.5rem;
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  p:nth-of-type(1) {
+    color: #172b4d;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  p:nth-of-type(2) {
+
+    color: #5e6c84;
+    margin: 0.2rem 0;
+    font-size: 0.9rem;
+
+  }
+
+  a{
+    color: #5e6c84 !important;
+    font-size: 0.9rem;
+  }
+}
+
+
+.inviteInput{
+  margin: 0.5rem 5%;
+  width: 80%;
+  padding: 0.5rem 5%;
+}
+
+.sendInviteButton{
+  background-color: #5aac44 !important;
+  margin: 1rem 5% 0.5rem !important;
+  padding: 0.3rem 5% !important;
+  color: white !important;
+  text-transform: capitalize !important;
+  font-weight: lighter !important;
+  width: 90%;
+  &:disabled{
+    background-color: #ebedf1 !important;
+    color: #cacfd8 !important;
+  }
 }

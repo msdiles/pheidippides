@@ -10,6 +10,7 @@ interface IAuth {
     userId: string
     userRole: string[]
     userToken: string
+    userEmail: string
     favoriteBoards: string[]
   }
 }
@@ -23,6 +24,7 @@ export const authState: IAuth = {
     userId: "",
     userRole: [],
     userToken: "",
+    userEmail: "",
     favoriteBoards: [],
   },
 }
@@ -55,6 +57,7 @@ const authReducer = (state = authState, action: AuthActions | UserActions) => {
           userId: "",
           userRole: [],
           userToken: "",
+          userEmail: "",
           favoriteBoards: [],
         },
       }
@@ -72,6 +75,7 @@ const authReducer = (state = authState, action: AuthActions | UserActions) => {
           userId: action.payload.user.id,
           userRole: action.payload.user.role,
           userToken: action.payload.accessToken,
+          userEmail: action.payload.user.email,
           favoriteBoards: action.payload.user.favoriteBoards,
         },
       }
@@ -84,6 +88,7 @@ const authReducer = (state = authState, action: AuthActions | UserActions) => {
           userId: action.payload.user.id,
           userRole: action.payload.user.role,
           userToken: action.payload.accessToken,
+          userEmail: action.payload.user.email,
           favoriteBoards: action.payload.user.favoriteBoards,
         },
       }
