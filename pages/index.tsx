@@ -34,7 +34,7 @@ export default function Home() {
           </>
         ) : (
           <>
-            <Button className={styles.button} disabled>
+            <Button className={styles.buttonDisabled} disabled>
               <Link href="/main/home">
                 <a className={styles.link}>Start</a>
               </Link>
