@@ -90,6 +90,8 @@ html, body, #__next {
 .main-section {
   display: flex;
   justify-content: center;
+  height: auto;
+  min-height: 100%;
 }
 
 .click-catcher {

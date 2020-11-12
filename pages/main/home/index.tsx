@@ -20,17 +20,21 @@ const home = () => {
       <div className="main-section">
         <MainSidebar setIsFormOpen={setIsTeamFromOpen} />
         <div className={styles.main}>
-          <BoardList
-            renderCondition={!!favoriteBoards.length}
-            boards={favoriteBoards}
-            boardListTitle={
-              <>
-                <StarBorderRoundedIcon />
-                &nbsp; Favorite Boards
-              </>
-            }
-            changeFavorite={changeFavorite}
-          />
+          {favoriteBoards.length ? (
+            <BoardList
+              renderCondition={!!favoriteBoards.length}
+              boards={favoriteBoards}
+              boardListTitle={
+                <>
+                  <StarBorderRoundedIcon />
+                  &nbsp; Favorite Boards
+                </>
+              }
+              changeFavorite={changeFavorite}
+            />
+          ) : (
+            <div>No starred boards</div>
+          )}
         </div>
       </div>
       <AddTeamFrom open={isTeamFormOpen} closeForm={closeForm} />

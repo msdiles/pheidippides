@@ -3,6 +3,7 @@ import MainLayout from "@/components/layouts/MainLayout"
 import useSeparateBoard from "@/hooks/useSeparateBoard"
 import BoardBar from "@/components/BoardBar"
 import PageLoader from "@/components/PageLoader"
+import BoardBody from "@/components/BoardBody"
 
 const board = () => {
   const { board, color, setCalendarOpen, isCalendarOpen } = useSeparateBoard()
@@ -19,6 +20,7 @@ const board = () => {
           isCalendarOpen={isCalendarOpen}
           setCalendarOpen={setCalendarOpen}
         />
+        <BoardBody />
       </div>
     </MainLayout>
   )
