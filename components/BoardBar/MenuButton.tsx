@@ -3,7 +3,7 @@ import styles from "@/components/BoardBar/boardBar.module.scss"
 
 const MenuButton = () => {
   return (
-    <div className={styles.menuButton}>
+    <div className={styles.menuButton} tabIndex={0}>
       <MoreHorizRoundedIcon />
       Show menu
     </div>

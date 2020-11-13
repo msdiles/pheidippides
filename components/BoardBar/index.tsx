@@ -27,9 +27,9 @@ const BoardBar = ({ board, isCalendarOpen, setCalendarOpen }: IProps) => {
       <BoardTitle board={board} />
       <FavoriteButton favoriteBoards={favoriteBoards} board={board} />
       <div className={styles.divider} />
-      <TeamDropdown team={team} />
+      <TeamDropdown team={team} board={board} />
       {team && <div className={styles.divider} />}
-      <VisibilityDropdown team={team} />
+      <VisibilityDropdown team={team} board={board} />
       <div className={styles.divider} />
       <ProfileIcon />
       <InviteButton />

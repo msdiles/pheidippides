@@ -34,6 +34,13 @@ const useSeparateBoard = () => {
     )
   }, [teams.length])
 
+  useEffect(() => {
+    const brd = boards.find((b) => b._id === board?._id)
+    if (brd) {
+      setBoard(brd)
+    }
+  }, [boards])
+
   return {
     board,
     color: getColor(board?.color || ""),
