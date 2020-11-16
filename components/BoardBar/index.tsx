@@ -14,12 +14,18 @@ interface IProps {
   board: IBoard
   isCalendarOpen: boolean
   setCalendarOpen: (isOpen: boolean) => void
+  style: React.CSSProperties
 }
 
-const BoardBar = ({ board, isCalendarOpen, setCalendarOpen }: IProps) => {
+const BoardBar = ({
+  board,
+  isCalendarOpen,
+  setCalendarOpen,
+  style,
+}: IProps) => {
   const { favoriteBoards, team } = useBoardBar({ board })
   return (
-    <div className={styles.boardBar}>
+    <div className={styles.boardBar} style={style}>
       <OptionsDropdown
         setCalendarOpen={setCalendarOpen}
         isCalendarOpen={isCalendarOpen}

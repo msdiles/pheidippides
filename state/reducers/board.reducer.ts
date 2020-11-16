@@ -49,6 +49,49 @@ const boardReducer = (state = boardState, action: BoardActions) => {
         ...state,
         loading: false,
       }
+    case BoardActionTypes.LIST_CREATE_DONE:
+      console.log(action.payload)
+      return {
+        ...state,
+        boards: state.boards.map((board) =>
+          board._id === action.payload.boardId
+            ? {
+                ...board,
+                lists: [...board.lists, action.payload.target],
+              }
+            : board
+        ),
+      }
+    case BoardActionTypes.LIST_DELETE_DONE:
+      return {
+        ...state,
+        boards: state.boards.map((board) =>
+          board._id === action.payload.boardId
+            ? {
+                ...board,
+                lists: board.lists.filter(
+                  (l) => l._id !== action.payload.target
+                ),
+              }
+            : board
+        ),
+      }
+    case BoardActionTypes.LIST_CHANGE_DONE:
+      return {
+        ...state,
+        boards: state.boards.map((board) =>
+          board._id === action.payload.boardId
+            ? {
+                ...board,
+                lists: board.lists.map((l) =>
+                  l._id === action.payload.target._id
+                    ? action.payload.target
+                    : l
+                ),
+              }
+            : board
+        ),
+      }
     default:
       return state
   }

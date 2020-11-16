@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/state/reducers"
 import { boardGetAllStart } from "@/state/actions/board.actions"
 import { teamGetAllStart } from "@/state/actions/team.actions"
-import { appSetColor } from "@/state/actions/app.actions"
 import { getColor } from "@/utils/colors"
 
 const getIdFromUrl = (url: string) => {

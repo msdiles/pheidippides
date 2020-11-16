@@ -13,7 +13,6 @@ import { Button } from "@material-ui/core"
 import Link from "next/link"
 import styles from "./navbar.module.scss"
 import { darken } from "@material-ui/core/styles/colorManipulator"
-// import { darken } from "@/utils/colors"
 
 interface IProps {
   color?: string

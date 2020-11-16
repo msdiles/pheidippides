@@ -1,10 +1,12 @@
 .addList {
   height: auto;
-  min-height:2rem;
+  min-height: 2rem;
   width: 16.5rem;
   padding: 0.25rem 0.25rem 0 0.25rem;
   cursor: pointer;
+  overflow: hidden;
   background-color: rgba(255, 255, 255, 0.27);
+  border-radius: 3px;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.34);
@@ -13,20 +15,29 @@
   &:active {
     background-color: rgba(255, 255, 255, 0.5);
   }
+
+  transition: background-color 200ms;
+
+
+  margin-right: 0.5rem;
+
+
 }
 
-.addListOpen{
-  height: 4.5rem;
+.addListOpen {
   overflow: hidden;
   background-color: #ebecf0;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.25rem !important;
+
   &:hover {
     background-color: #ebecf0;
   }
 
   &:active {
-    background-color:#ebecf0;
+    background-color: #ebecf0;
   }
+
+  transition: background-color 200ms;
 }
 
 .placeholder {
@@ -47,15 +58,13 @@
 
 .additionalOpen {
   visibility: visible;
-  transition: height 200ms;
+  transition: height 200ms !important;
   height: 2.2rem;
-
-
 }
 
 .additionalClose {
-  visibility: hidden;
-  transition: height 200ms;
+  visibility: visible;
+  transition: height 200ms !important;
   height: 0;
 }
 
@@ -65,9 +74,10 @@
   align-items: center;
   padding: 0.2rem;
   cursor: auto;
-  button{
-    background-color:#5aac44;
-    color:white;
+
+  button {
+    background-color: #5aac44;
+    color: white;
     font-weight: 400;
     font-size: 0.85rem;
     text-transform: capitalize;
@@ -75,16 +85,17 @@
     margin-left: -0.2rem;
 
 
-    &:hover{
-      background-color:#61bd4f ;
+    &:hover {
+      background-color: #61bd4f;
     }
-    &:active{
+
+    &:active {
       background-color: #49852e;
     }
   }
 
-  svg{
-    color:#42526e;
+  svg {
+    color: #42526e;
     margin-left: 0.6rem;
   }
 }
@@ -96,10 +107,18 @@
   font-size: 0.9rem;
 
   input {
+    box-sizing: border-box;
     width: 100%;
     height: 1.85rem;
     margin-top: 0.2rem;
     border: 2px solid #0079bf;
     border-radius: 3px;
+    padding: 1rem 0.6rem !important;
+
+    outline: none;
   }
+}
+
+.closeButton {
+  cursor: pointer;
 }

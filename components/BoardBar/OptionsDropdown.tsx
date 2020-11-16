@@ -5,7 +5,7 @@ import DateRangeIcon from "@material-ui/icons/DateRange"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
 import styles from "./boardBar.module.scss"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ClickAwayListener } from "@material-ui/core"
 
 interface IProps {

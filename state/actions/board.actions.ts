@@ -217,7 +217,11 @@ export const listGetStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.getList(payload.id, token)
+      const { result, status } = await API.getList(
+        payload.boardId,
+        payload.listId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
@@ -250,13 +254,23 @@ export const listChangeStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.changeList(payload.list, token)
+      const { result, status } = await API.changeList(
+        payload.list,
+        payload.boardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
         dispatch(authRefresh({ action: listChangeStart, data: payload }))
       } else {
-        dispatch(listChangeDone(result))
+        dispatch(
+          listChangeDone({
+            success: result.success,
+            target: result.target.target,
+            boardId: result.target.boardId,
+          })
+        )
         dispatch(appSetMessage({ message: "List changed", type: "info" }))
       }
     } catch (e) {
@@ -284,13 +298,23 @@ export const listCreateStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.createList(payload.list, token)
+      const { result, status } = await API.createList(
+        payload.list,
+        payload.boardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
         dispatch(authRefresh({ action: listCreateStart, data: payload }))
       } else {
-        dispatch(listCreateDone(result))
+        dispatch(
+          listCreateDone({
+            success: result.success,
+            target: result.target.target,
+            boardId: result.target.boardId,
+          })
+        )
         dispatch(appSetMessage({ message: "List created", type: "success" }))
       }
     } catch (e) {
@@ -318,13 +342,23 @@ export const listDeleteStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.deleteList(payload.id, token)
+      const { result, status } = await API.deleteList(
+        payload.boardId,
+        payload.listId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
         dispatch(authRefresh({ action: listDeleteStart, data: payload }))
       } else {
-        dispatch(listDeleteDone(result))
+        dispatch(
+          listDeleteDone({
+            success: result.success,
+            target: result.target.target,
+            boardId: result.target.boardId,
+          })
+        )
         dispatch(appSetMessage({ message: "List deleted", type: "warning" }))
       }
     } catch (e) {
@@ -353,7 +387,11 @@ export const cardGetStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.getCard(payload.id, token)
+      const { result, status } = await API.getCard(
+        payload.boardId,
+        payload.cardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
@@ -386,7 +424,11 @@ export const cardChangeStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.changeCard(payload.card, token)
+      const { result, status } = await API.changeCard(
+        payload.card,
+        payload.boardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
@@ -420,7 +462,11 @@ export const cardCreateStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.createCard(payload.card, token)
+      const { result, status } = await API.createCard(
+        payload.card,
+        payload.boardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {
@@ -454,7 +500,11 @@ export const cardDeleteStart = (
     try {
       await dispatch(boardLoading)
       const token = getState().auth.user.userToken
-      const { result, status } = await API.deleteCard(payload.id, token)
+      const { result, status } = await API.deleteCard(
+        payload.boardId,
+        payload.cardId,
+        token
+      )
       if (status > 200 && status !== 401) {
         throw new Error(result.message)
       } else if (status === 401) {

@@ -1,0 +1,15 @@
+.listWrapper{
+  height: 100%;
+  margin-right: 0.5rem;
+  &:first-child {
+    margin-left: 0.5rem;
+  }
+}
+
+.list{
+  background-color: #ebecf0;
+  width: 16.5rem;
+  padding: 0.25rem;
+  border-radius: 3px;
+  color:#172b4d;
+}

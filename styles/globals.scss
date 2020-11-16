@@ -2,6 +2,10 @@ html {
   font-family: "Roboto Light", sans-serif;
 }
 
+*{
+  user-select: none;
+}
+
 html, body, #__next {
   height: 100%;
   padding: 0;

@@ -4,6 +4,7 @@ import useSeparateBoard from "@/hooks/useSeparateBoard"
 import BoardBar from "@/components/BoardBar"
 import PageLoader from "@/components/PageLoader"
 import BoardBody from "@/components/BoardBody"
+import ColorProvider from "@/components/ColorContext"
 
 const board = () => {
   const { board, color, setCalendarOpen, isCalendarOpen } = useSeparateBoard()
@@ -13,16 +14,19 @@ const board = () => {
   }
 
   return (
-    <MainLayout color={color}>
-      <div className={styles.boardMain} style={{ backgroundColor: color }}>
+    <ColorProvider>
+      <MainLayout color={color}>
         <BoardBar
           board={board}
           isCalendarOpen={isCalendarOpen}
           setCalendarOpen={setCalendarOpen}
+          style={{ backgroundColor: color }}
         />
-        <BoardBody />
-      </div>
-    </MainLayout>
+        <div className={styles.boardMain} style={{ backgroundColor: color }}>
+          <BoardBody board={board} />
+        </div>
+      </MainLayout>
+    </ColorProvider>
   )
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "pheidippides",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "scripts": {
     "dev": "cross-env NEXT_PUBLIC_API_URL=\"http://localhost:3444/api/\" next dev",

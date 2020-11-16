@@ -154,6 +154,7 @@ export interface BoardEnding extends Action {
 
 //LIST_CREATE_START
 export interface ListCreateStartPayload {
+  boardId: string
   list: IListCreated
 }
 
@@ -166,6 +167,7 @@ export interface ListCreateStart extends Action {
 export interface ListCreateDonePayload {
   success: boolean
   target: IList
+  boardId: string
 }
 
 export interface ListCreateDone extends Action {
@@ -175,7 +177,8 @@ export interface ListCreateDone extends Action {
 
 //LIST_DELETE_START
 export interface ListDeleteStartPayload {
-  id: string
+  boardId: string
+  listId: string
 }
 
 export interface ListDeleteStart extends Action {
@@ -187,6 +190,7 @@ export interface ListDeleteStart extends Action {
 export interface ListDeleteDonePayload {
   success: boolean
   target: string
+  boardId: string
 }
 
 export interface ListDeleteDone extends Action {
@@ -196,6 +200,7 @@ export interface ListDeleteDone extends Action {
 
 //LIST_CHANGE_START
 export interface ListChangeStartPayload {
+  boardId: string
   list: IList
 }
 
@@ -208,6 +213,7 @@ export interface ListChangeStart extends Action {
 export interface ListChangeDonePayload {
   success: boolean
   target: IList
+  boardId: string
 }
 
 export interface ListChangeDone extends Action {
@@ -217,7 +223,8 @@ export interface ListChangeDone extends Action {
 
 //LIST_GET_START
 export interface ListGetStartPayload {
-  id: string
+  boardId: string
+  listId: string
 }
 
 export interface ListGetStart extends Action {
@@ -238,6 +245,7 @@ export interface ListGetDone extends Action {
 
 //CARD_CREATE_START
 export interface CardCreateStartPayload {
+  boardId: string
   card: ICardCreated
 }
 
@@ -259,7 +267,8 @@ export interface CardCreateDone extends Action {
 
 //CARD_DELETE_START
 export interface CardDeleteStartPayload {
-  id: string
+  boardId: string
+  cardId: string
 }
 
 export interface CardDeleteStart extends Action {
@@ -280,6 +289,7 @@ export interface CardDeleteDone extends Action {
 
 //CARD_CHANGE_START
 export interface CardChangeStartPayload {
+  boardId: string
   card: ICard
 }
 
@@ -301,7 +311,8 @@ export interface CardChangeDone extends Action {
 
 //CARD_GET_START
 export interface CardGetStartPayload {
-  id: string
+  boardId: string
+  cardId: string
 }
 
 export interface CardGetStart extends Action {

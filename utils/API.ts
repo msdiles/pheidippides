@@ -192,48 +192,48 @@ class API {
   }
 
   //List
-  static async getList(id: string, token: string) {
+  static async getList(boardId: string, listId: string, token: string) {
     const response = await http(
       "list/get",
       "POST",
       {
-        data: { id },
+        data: { boardId, listId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async deleteList(id: string, token: string) {
+  static async deleteList(boardId: string, listId: string, token: string) {
     const response = await http(
       "list/delete",
       "POST",
       {
-        data: { id },
+        data: { boardId, listId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async changeList(list: IListCreated, token: string) {
+  static async changeList(list: IListCreated, boardId: string, token: string) {
     const response = await http(
       "list/change",
       "POST",
       {
-        data: { list },
+        data: { list, boardId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async createList(list: IListCreated, token: string) {
+  static async createList(list: IListCreated, boardId: string, token: string) {
     const response = await http(
       "list/create",
       "POST",
       {
-        data: { list },
+        data: { list, boardId },
       },
       { Authorization: `bearer ${token}` }
     )
@@ -242,48 +242,48 @@ class API {
 
   //Card
 
-  static async getCard(id: string, token: string) {
+  static async getCard(boardId: string, cardId: string, token: string) {
     const response = await http(
       "card/get",
       "POST",
       {
-        data: { id },
+        data: { boardId, cardId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async deleteCard(id: string, token: string) {
+  static async deleteCard(boardId: string, cardId: string, token: string) {
     const response = await http(
       "card/delete",
       "POST",
       {
-        data: { id },
+        data: { boardId, cardId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async changeCard(card: ICardCreated, token: string) {
+  static async changeCard(card: ICardCreated, boardId: string, token: string) {
     const response = await http(
       "card/change",
       "POST",
       {
-        data: { card },
+        data: { card, boardId },
       },
       { Authorization: `bearer ${token}` }
     )
     return await this.handleRequest(response)
   }
 
-  static async createCard(card: ICardCreated, token: string) {
+  static async createCard(card: ICardCreated, boardId: string, token: string) {
     const response = await http(
       "card/create",
       "POST",
       {
-        data: { card },
+        data: { card, boardId },
       },
       { Authorization: `bearer ${token}` }
     )
